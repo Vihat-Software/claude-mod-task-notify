@@ -1,0 +1,11 @@
+{
+  "name": "claude-mod-task-notify",
+  "owner": { "name": "Kds" },
+  "plugins": [
+    {
+      "name": "task-notify",
+      "source": "./plugins/task-notify",
+      "description": "Desktop notification when Claude Code finishes or needs permission/input; click focuses the terminal."
+    }
+  ]
+}

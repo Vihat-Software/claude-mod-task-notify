@@ -1,0 +1,6 @@
+{
+  "name": "task-notify",
+  "version": "1.0.0",
+  "description": "Desktop notification when Claude Code finishes or needs permission/input; click focuses the terminal (macOS, Linux, Windows).",
+  "keywords": ["notification", "hooks", "productivity"]
+}
