@@ -27,6 +27,7 @@ Or keep it installed and silence a repo with an empty file: `touch <repo>/.claud
 
 - `TASK_NOTIFY_SOUND=0` — no sound
 - `TASK_NOTIFY_BUNDLE_ID=<bundle id>` — macOS app to focus on click (auto-detected from `$TERM_PROGRAM`)
+- `TASK_NOTIFY_ALWAYS=1` — notify even when the source app is already frontmost (skipped by default on macOS, Linux/X11 with `xdotool`, and Windows)
 
 ## Icon
 
