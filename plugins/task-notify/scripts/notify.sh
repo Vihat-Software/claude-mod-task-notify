@@ -3,6 +3,8 @@
 # Usage: notify.sh <finished|needs-input>
 # Skip per repo: create <repo>/.claude/no-notify  (or disable the plugin via enabledPlugins).
 # Env: TASK_NOTIFY_SOUND=0 disables sound; TASK_NOTIFY_BUNDLE_ID overrides the macOS app to focus.
+# Icon: banner shows the source app's logo (macOS, via -sender). Per-repo custom image:
+#   <repo>/.claude/notify-icon.png  (or TASK_NOTIFY_ICON=/path/to/image.png)
 
 kind="${1:-finished}"
 project_dir="${CLAUDE_PROJECT_DIR:-$PWD}"
@@ -36,7 +38,12 @@ mac_bundle_id() {
 case "$(uname -s)" in
   Darwin)
     if command -v terminal-notifier >/dev/null 2>&1; then
-      args=(-title "$title" -message "$msg" -group "claude-$repo" -activate "$(mac_bundle_id)")
+      bid="$(mac_bundle_id)"
+      args=(-title "$title" -message "$msg" -group "claude-$repo" -activate "$bid")
+      # Source app logo (e.g. VS Code). Only if that app is installed.
+      [ -n "$(mdfind "kMDItemCFBundleIdentifier == '$bid'" 2>/dev/null | head -1)" ] && args+=(-sender "$bid")
+      icon="${TASK_NOTIFY_ICON:-$project_dir/.claude/notify-icon.png}"
+      [ -f "$icon" ] && args+=(-contentImage "$icon" -appIcon "$icon")
       [ -n "$sound" ] && args+=(-sound "$sound")
       terminal-notifier "${args[@]}" >/dev/null 2>&1
     else

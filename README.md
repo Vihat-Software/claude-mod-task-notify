@@ -27,3 +27,10 @@ Or keep it installed and silence a repo with an empty file: `touch <repo>/.claud
 
 - `TASK_NOTIFY_SOUND=0` — no sound
 - `TASK_NOTIFY_BUNDLE_ID=<bundle id>` — macOS app to focus on click (auto-detected from `$TERM_PROGRAM`)
+
+## Icon
+
+On macOS the banner shows the logo of the app you're running in (VS Code, iTerm, Ghostty, …) via `terminal-notifier -sender`.
+
+Custom image per repo: put `<repo>/.claude/notify-icon.png` in the repo (shown as the banner image), or set `TASK_NOTIFY_ICON=/path/to/image.png`.
+Note: on recent macOS the small app icon can't be replaced, so a custom image appears as the attachment on the right.
