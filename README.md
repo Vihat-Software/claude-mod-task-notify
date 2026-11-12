@@ -1,7 +1,7 @@
 # claude-mod-task-notify
 
 Claude Code plugin: desktop notification when a session **finishes** or **needs permission / input**.
-Clicking the banner focuses your terminal (macOS with `terminal-notifier`).
+Clicking the banner focuses your terminal (macOS with `terminal-notifier`); for VS Code-family editors it focuses the window that has the project folder open.
 
 ## Install (any device)
 

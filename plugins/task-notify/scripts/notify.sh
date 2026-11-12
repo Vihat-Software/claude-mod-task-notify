@@ -74,7 +74,15 @@ case "$(uname -s)" in
     fi
     if command -v terminal-notifier >/dev/null 2>&1; then
       bid="$(mac_bundle_id)"
-      args=(-title "$title" -message "$msg" -group "claude-$repo" -activate "$bid")
+      args=(-title "$title" -message "$msg" -group "claude-$repo")
+      case "$bid" in
+        # VS Code-family editors: opening the project folder focuses the window that already
+        # has it open (plain -activate would raise whichever window was last active).
+        com.microsoft.VSCode*|com.todesktop.*|com.exafunction.windsurf|com.vscodium)
+          printf -v cmd 'open -b %q %q' "$bid" "$project_dir"
+          args+=(-execute "$cmd" -activate "$bid") ;;
+        *) args+=(-activate "$bid") ;;
+      esac
       # Source app logo (e.g. VS Code). Only if that app is installed.
       [ -n "$(mdfind "kMDItemCFBundleIdentifier == '$bid'" 2>/dev/null | head -1)" ] && args+=(-sender "$bid")
       icon="${TASK_NOTIFY_ICON:-$project_dir/.claude/notify-icon.png}"
